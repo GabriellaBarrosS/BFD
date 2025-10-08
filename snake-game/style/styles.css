@@ -1,0 +1,87 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: rgba(105, 63, 16, 0.8901960784);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #0c0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  width: 480px;
+  background: #704008;
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 8px 30px rgba(30, 30, 30, 0.08);
+}
+.container .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.container .top h1 {
+  margin: 0;
+  font-size: 18px;
+}
+.container .top .score {
+  font-weight: 600;
+}
+.container main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container main canvas {
+  background: #1d8b1d;
+  border-radius: 8px;
+  border: 1px solid #e6e7ea;
+  display: block;
+}
+.container main .controls {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.container main .controls button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: #967038;
+  color: rgb(179, 223, 179);
+  cursor: pointer;
+  font-weight: 600;
+}
+.container main .controls select {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #000000;
+}
+.container main .hint {
+  margin-top: 10px;
+  font-size: 13px;
+  background: rgb(179, 223, 179);
+  border: 3px solid #143505;
+  border-radius: 8px;
+  padding: 10px;
+  color: #143505;
+  text-align: center;
+  font-weight: bold;
+}
+.container footer {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  color: #143505;
+}
+
+/*# sourceMappingURL=styles.css.map */
