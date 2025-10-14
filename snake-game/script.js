@@ -1,8 +1,7 @@
-// script.js
+
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 
-// grade: 20 células (400px / 20 = 20px por célula)
 const tileCount = 20;
 const tileSize = canvas.width / tileCount;
 
@@ -12,29 +11,29 @@ let snake = [
     { x: 8, y: 10 }
 ];
 
-let dir = { x: 1, y: 0 };       // direção atual
-let nextDir = { x: 1, y: 0 };   // direção que o jogador quer (lock para evitar reversão)
+let dir = { x: 1, y: 0 };       
+let nextDir = { x: 1, y: 0 };  
 let food = { x: 0, y: 0 };  // posição da comida boa
 let badFruit = { x: -1, y: -1 };     // posição da comida mal
 let score = 0;
-let speed = 120;                // ms entre frames (ajustável via select)
+let speed = 120;                
 let gameInterval = null;
 let running = false;
 
-// --- util: gera posição aleatória que não esteja sobre a cobra
+
 function placeFood() {
     food.x = Math.floor(Math.random() * tileCount);
     food.y = Math.floor(Math.random() * tileCount);
 
     for (let s of snake) {
         if (s.x === food.x && s.y === food.y) {
-            // se bateu na cobra, tenta de novo
+            //tenta de novo
             placeFood();
             return;
         }
     }
 }
-// --- util: gera posição aleatória para a fruta ruim
+
 function placeBadFruit() {
     badFruit.x = Math.floor(Math.random() * tileCount);
     badFruit.y = Math.floor(Math.random() * tileCount);
@@ -49,7 +48,6 @@ function placeBadFruit() {
     }
 }
 
-// --- desenha tudo
 function draw() {
     // fundo
     ctx.fillStyle = '#223810ff';
@@ -59,7 +57,7 @@ function draw() {
     ctx.fillStyle = '#e74c3c';
     ctx.fillRect(food.x * tileSize, food.y * tileSize, tileSize - 1, tileSize - 1);
 
-    // comida ruim (ex: fruta azul)
+    // comida ruim 
     ctx.fillStyle = '#e7f70dff'; // azul
     ctx.fillRect(badFruit.x * tileSize, badFruit.y * tileSize, tileSize - 1, tileSize - 1);
 
@@ -71,7 +69,7 @@ function draw() {
     }
 }
 
-// --- atualiza estado do jogo (movimentação, colisões, comer)
+// atualiza estado do jogo (movimentação, colisões, comer)
 function update() {
     // aplica próxima direção se não for reverso
     if (!(nextDir.x === -dir.x && nextDir.y === -dir.y)) {
@@ -86,7 +84,7 @@ function update() {
         return;
     }
 
-    // colisão com o próprio corpo -> fim de jogo
+    // colisão com o próprio corpo
     for (let segment of snake) {
         if (segment.x === head.x && segment.y === head.y) {
             gameOver();
@@ -94,41 +92,38 @@ function update() {
         }
     }
 
-    // colisão com a fruta ruim (diminui o rabo)
+    //fruta ruim (diminui o rabo)
     if (head.x === badFruit.x && head.y === badFruit.y) {
-        // remove 2 segmentos (ou o que for possível)
+        // tira 2 segmentos 
         for (let i = 0; i < 2; i++) {
             if (snake.length > 1) {
                 snake.pop();
             }
         }
-        placeBadFruit(); // reposiciona
+        placeBadFruit(); 
     }
 
-    // move snake (adiciona a cabeça)
+    // move a cobra
     snake.unshift(head);
 
     // comeu?
     if (head.x === food.x && head.y === food.y) {
         score++;
         document.getElementById('score').innerText = score;
-        // opcional: aumentar velocidade conforme pontuação (exemplo)
-        // speed = Math.max(40, speed - 1);
         placeFood();
     } else {
-        // remove a cauda (mantém mesmo tamanho)
         snake.pop();
     }
 }
 
-// --- fim de jogo
+
 function gameOver() {
     running = false;
     clearInterval(gameInterval);
     alert('Game Over! Pontuação: ' + score);
 }
 
-// --- controles do jogo
+//controles
 function start() {
     if (running) return;
     running = true;
@@ -164,7 +159,7 @@ function restart() {
     draw();
 }
 
-// --- helper caso necessário
+// reset
 function resetState() {
     snake = [
         { x: 10, y: 10 },
@@ -178,7 +173,7 @@ function resetState() {
     placeFood();
 }
 
-// --- eventos teclado (setas + WASD)
+//teclado 
 document.addEventListener('keydown', (e) => {
     switch (e.key) {
         case 'ArrowUp':
@@ -204,7 +199,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// --- botões UI
+//botões
 document.getElementById('start').addEventListener('click', start);
 document.getElementById('pause').addEventListener('click', pause);
 document.getElementById('restart').addEventListener('click', restart);
